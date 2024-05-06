@@ -210,7 +210,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                     ],
                                   ),
                                   const SizedBox(height: 8),
-                                  message['approve_status'] == '0'
+                                  message['approve_status'] == 0
                                       ? Row(
                                           children: [
                                             ElevatedButton(
@@ -242,7 +242,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                             ),
                                           ],
                                         )
-                                      : message['approve_status'] == '2'
+                                      : message['approve_status'] == 2
                                           ? ElevatedButton(
                                               onPressed: () {
                                                 // Implement decline action
@@ -296,8 +296,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                         ],
                                       ),
                                       const SizedBox(height: 8),
-                                      message['approve_status'].toString() ==
-                                              '0'
+                                      message['approve_status'] == 0
                                           ? Row(
                                               children: [
                                                 ElevatedButton(
@@ -332,9 +331,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                                 ),
                                               ],
                                             )
-                                          : message['approve_status']
-                                                      .toString() ==
-                                                  '2'
+                                          : message['approve_status'] == 2
                                               ? ElevatedButton(
                                                   onPressed: () {
                                                     // Implement decline action

@@ -2,89 +2,65 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vahan_user/http/http.dart';
+import 'package:vahan_user/http/http.dart' as hhtp10;
+import 'package:http/http.dart' as http5;
+import 'package:vahan_user/utils/server_config.dart';
 
-final HttpClient _httpClient = HttpClient();
+final hhtp10.HttpClient _httpClient = hhtp10.HttpClient();
 
 class ActionCOntrollers extends GetxController {
-  Future<Map<String, dynamic>> addBike(
-      Map<String, dynamic> bikeData, File? imageFile) async {
-    final httpClient = HttpClient();
-
-    try {
-      final response = await httpClient.multipartPost(
-        path: 'user/add-bike',
-        data: bikeData,
-        imageFile: imageFile,
-      );
-      return response;
-    } catch (e) {
-      return {'error': 'Failed to add bike. $e'};
-    }
-  }
-
-  Future<List> getAllMessages(orderId) async {
+  Future<Map> getAllMessages(orderId) async {
     var response = await _httpClient.get(
         path: 'user/single-order-chat-list?order_id=$orderId');
     var a = jsonDecode(response['body']);
-    List body = a['data'] as List;
+    Map body = a as Map;
 
     return body;
   }
 
-  Future<List> getAllOilList() async {
-    var response = await _httpClient.get(path: 'get-engine-oil');
-    var a = jsonDecode(response['body']);
-    List body = a['data'] as List;
-    return body;
-  }
-
-  Future<List> getCartList() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userId = prefs.getInt('userId');
-    var response = await _httpClient
-        .post(path: 'user/get-cart-list', body: {"user_id": userId});
-    var a = jsonDecode(response['body']);
-    List body = a['data'] as List;
-    return body;
-  }
-
-  Future<Map<String, dynamic>> addToCart(Map<String, dynamic> data) async {
-    var response = await _httpClient.post(path: 'user/add-to-card', body: data);
-    var body = json.decode(response['body']) as Map<String, dynamic>;
-    return body;
-  }
-
-  Future<Map<String, dynamic>> getVendorByTypeAuto() async {
-    var response = await _httpClient
-        .post(path: 'user/get-vendor-by-type', body: {"type": "auto"});
-    var body = json.decode(response['body']) as Map<String, dynamic>;
-    return body;
-  }
-
-  Future<List> getVendorByTypeManual() async {
-    var response = await _httpClient
-        .post(path: 'user/get-vendor-by-type', body: {"type": "manual"});
-    var a = jsonDecode(response['body']);
-    List body = a['data'] as List;
-    return body;
-  }
-
-  Future<Map> placeOrder(Map data) async {
-    var response = await _httpClient.post(path: 'user/place-order', body: data);
-    var a = jsonDecode(response['body']);
-
-    return a;
-  }
-
-  Future<List> getOrderHistory() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userId = prefs.getInt('userId');
+  Future<Map<String, dynamic>> sendProductForApproval(
+      Map<String, dynamic> data) async {
+    print('in approval');
+    print(data);
     var response =
-        await _httpClient.get(path: 'user/get-order-list?user_id=$userId');
-    var a = jsonDecode(response['body']);
-    List body = a['data'] as List;
+        await _httpClient.post(path: 'user/send-user-message', body: data);
+    print(response);
+    var body = json.decode(response['body']) as Map<String, dynamic>;
+    print(body);
+
+    return body;
+  }
+
+  Future<Map<String, dynamic>> sendImage(
+      String orderId, XFile imageFile, vendorID) async {
+    var request = http5.MultipartRequest(
+        'POST', Uri.parse('${serverUrl}user/send-user-message'));
+
+    // Add order ID
+    request.fields['order_id'] = orderId;
+    request.fields['type'] = '3';
+    request.fields['send_by'] = vendorID.toString();
+
+    // Convert XFile to File
+    var file = File(imageFile.path);
+
+    // Attach image file
+    var image = await http5.MultipartFile.fromPath('images', file.path);
+    request.files.add(image);
+
+    // Send request
+    var response = await request.send();
+
+    // Get response
+    var responseData = await response.stream.bytesToString();
+    print(responseData);
+
+    // Parse response
+    var body = json.decode(responseData) as Map<String, dynamic>;
+    print(body);
+
     return body;
   }
 }
