@@ -112,7 +112,9 @@ class DialogContent extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            Get.offAll(() => HomePage());
+            Get.offAll(() => HomePage(
+                  preselectedIndex: 3,
+                ));
           },
           child: const Text('OK'),
         ),

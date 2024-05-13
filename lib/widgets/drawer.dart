@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vahan_user/controllers/login_controllers.dart';
 import 'package:vahan_user/screens/bike/allbikes.dart';
 import 'package:vahan_user/screens/changepasswor.dart';
 import 'package:vahan_user/screens/login.dart';
@@ -27,7 +29,7 @@ class CustomizeDrawerScreen extends StatelessWidget {
                     top: MediaQuery.of(context).padding.top,
                     bottom: 24,
                   ),
-                  child: Column(
+                  child: const Column(
                     children: [
                       CircleAvatar(
                         radius: 52,
@@ -61,53 +63,53 @@ class CustomizeDrawerScreen extends StatelessWidget {
             Column(
               children: [
                 ListTile(
-                  leading: Icon(Icons.home_outlined),
-                  title: Text('Home'),
+                  leading: const Icon(Icons.home_outlined),
+                  title: const Text('Home'),
                   onTap: () {},
                 ),
                 ListTile(
-                  leading: Icon(Icons.favorite_border),
-                  title: Text('My Bikes'),
+                  leading: const Icon(Icons.favorite_border),
+                  title: const Text('My Bikes'),
                   onTap: () {
-                    Get.to(() => AllBikesScreen());
+                    Get.to(() => const AllBikesScreen());
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.lock_outline),
-                  title: Text('Change Password'),
+                  leading: const Icon(Icons.lock_outline),
+                  title: const Text('Change Password'),
                   onTap: () {
-                    Get.to(() => ChangePassword());
+                    Get.to(() => const ChangePassword());
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.policy_outlined),
-                  title: Text('Privacy Policy'),
+                  leading: const Icon(Icons.policy_outlined),
+                  title: const Text('Privacy Policy'),
                   onTap: () {},
                 ),
                 ListTile(
-                  leading: Icon(Icons.info_outline),
-                  title: Text('About Us'),
+                  leading: const Icon(Icons.info_outline),
+                  title: const Text('About Us'),
                   onTap: () {},
                 ),
                 ListTile(
-                  leading: Icon(Icons.help_outline),
-                  title: Text('Help'),
+                  leading: const Icon(Icons.help_outline),
+                  title: const Text('Help'),
                   onTap: () {},
                 ),
                 const Divider(
                   color: Colors.black45,
                 ),
                 ListTile(
-                  leading: Icon(Icons.logout),
-                  title: Text(
+                  leading: const Icon(Icons.logout),
+                  title: const Text(
                     'Logout',
                     style: TextStyle(
                       color: Colors.red,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  onTap: () {
-                    Get.offAll(LoginPage());
+                  onTap: () async {
+                    LoginController().logout();
                   },
                 ),
               ],

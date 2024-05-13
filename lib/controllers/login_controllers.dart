@@ -16,7 +16,8 @@ class LoginController extends GetxController {
 
     return body;
   }
-   Future<Map<String, dynamic>> signUpUser(Map<String, dynamic> data) async {
+
+  Future<Map<String, dynamic>> signUpUser(Map<String, dynamic> data) async {
     print(data);
     var response = await _httpClient.post(path: 'user/register', body: data);
     print(response['body']);
@@ -39,6 +40,20 @@ class LoginController extends GetxController {
         await _httpClient.get(path: 'user/get-user-profile?user_id=${userId}');
     var a = jsonDecode(response['body']);
     Map body = a['data'] as Map;
+
+    return body;
+  }
+
+  Future<Map<String, dynamic>> getOTP(String number) async {
+    var response = await _httpClient.post(path: 'user/send-otp', body: {"number": number});
+    var body = json.decode(response['body']) as Map<String, dynamic>;
+
+    return body;
+  }
+
+  Future<Map<String, dynamic>> verifyOTP(String number, String otp) async {
+    var response = await _httpClient.post(path: 'user/varified-otp', body: {"number": number, "otp": otp});
+    var body = json.decode(response['body']) as Map<String, dynamic>;
 
     return body;
   }

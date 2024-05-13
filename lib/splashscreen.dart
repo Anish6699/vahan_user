@@ -24,18 +24,21 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       const Duration(seconds: 2),
       () async {
-         SharedPreferences prefs = await SharedPreferences.getInstance();
-          var token = prefs.getString('token');
-        Get.offAll(HomePage());
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        var token = prefs.getString('token');
+        // Get.offAll(HomePage(
+        //   preselectedIndex: 0,
+        // ));
         bool result = await InternetConnectionChecker().hasConnection;
         if (result == true) {
           print('taking to login screen');
-        
+
           if (token == null) {
             Get.offAll(LoginPage());
-
           } else {
-            Get.offAll(() => HomePage());
+            Get.offAll(() => HomePage(
+                  preselectedIndex: 0,
+                ));
           }
         } else {
           // show an popup with option to refresh page

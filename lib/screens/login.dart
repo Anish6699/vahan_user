@@ -207,7 +207,9 @@ class _LoginPageState extends State<LoginPage> {
                                 prefs.setInt('userId', data['data']['user_id']);
 
                                 Future.delayed(const Duration(seconds: 2), () {
-                                  Get.offAll(() => HomePage());
+                                  Get.offAll(() => HomePage(
+                                        preselectedIndex: 0,
+                                      ));
                                 });
                                 children = <Widget>[
                                   const Icon(
@@ -225,7 +227,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ];
                               }
                             }
-                           
+
                             if (snapshot.error != null) {
                               print(
                                   "Let's Close the Progress, Invalid Credentialssssssssssssssssssssssssssssssssssssssssss");
@@ -249,9 +251,7 @@ class _LoginPageState extends State<LoginPage> {
                                   Get.back();
                                 },
                               );
-                            }
-                           
-                            else {
+                            } else {
                               Future.delayed(const Duration(seconds: 5), () {
                                 print('data 3');
                                 print(data);

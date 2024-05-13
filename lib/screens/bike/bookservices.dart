@@ -25,7 +25,7 @@ class _BookServicesPageState extends State<BookServices> {
   BikesController bikesController = BikesController();
 
   Map<int, Set<int>> _selectedServices = {};
-  List<int> _selectedChipIds = []; // List to store selected chip ids
+  List<int> _selectedChipIds = []; // List to store selected chip ids//this list goes in apiiii
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List bikeList = [];
   var selectedBike;
@@ -432,7 +432,9 @@ class _BookServicesPageState extends State<BookServices> {
                                 ];
                               } else {
                                 Future.delayed(const Duration(seconds: 2), () {
-                                  Get.offAll(() => HomePage());
+                                  Get.offAll(() => HomePage(
+                                        preselectedIndex: 1,
+                                      ));
                                 });
                                 children = <Widget>[
                                   const Icon(

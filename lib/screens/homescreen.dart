@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vahan_user/screens/bike/bookservices.dart';
@@ -120,10 +121,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => BookServices());
+                    Get.to(() => const BookServices());
                   },
                   child: _buildServiceCard(
                     'General Services',
@@ -131,10 +132,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     'assets/technical-support.png',
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => BookServices());
+                    Get.to(() => const BookServices());
                   },
                   child: _buildServiceCard(
                     'Major Services',
@@ -142,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     'assets/motorcycle.png',
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Text(
@@ -154,26 +155,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
-                Row(
+                const SizedBox(height: 10),
+                Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildServiceIcon(
-                        'General\nServices', 'assets/technical-support.png'),
-                    _buildServiceIcon(
-                        'Major\nServices', 'assets/motorcycle.png'),
-                    _buildServiceIcon('Engine\nWork', 'assets/motor.png'),
+                    _buildServiceCard('General\nServices', 'Trending Service',
+                        'assets/technical-support.png'),
+                    const SizedBox(height: 10),
+                    _buildServiceCard('Major\nServices',
+                        'Most Recommended Service', 'assets/motorcycle.png'),
+                    const SizedBox(height: 10),
+                    _buildServiceCard('Engine\nWork',
+                        'Full Engine/Half Engine Works', 'assets/motor.png'),
+                    const SizedBox(height: 10),
+                    _buildServiceCard(
+                        'Labor\nServices',
+                        'Additional Product or Labor you may required',
+                        'assets/motorcycle.png'),
+                    const SizedBox(height: 10),
                   ],
                 ),
-                SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    _buildServiceIcon(
-                        'Labor\nServices', 'assets/motorcycle.png'),
-                  ],
-                ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -191,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
         borderRadius: BorderRadius.circular(20.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withOpacity(0.3),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
@@ -200,11 +202,11 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: green,
+            backgroundColor: green.withOpacity(0.5),
             radius: 25,
             child: Image.asset(iconPath, height: 28),
           ),
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontSize: 16.0,
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   subTitle,
                   style: TextStyle(
@@ -243,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen> {
             borderRadius: BorderRadius.circular(10.0),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: Colors.black.withOpacity(0.3),
                 blurRadius: 10,
                 offset: const Offset(0, 5),
               ),
@@ -253,13 +255,13 @@ class _HomeScreenState extends State<HomeScreen> {
           width: 100,
           child: Center(
             child: CircleAvatar(
-              backgroundColor: lightGreen.withOpacity(0.5),
+              backgroundColor: green.withOpacity(0.5),
               radius: 30,
               child: Image.asset(iconPath, height: 28),
             ),
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         SizedBox(
           width: 100,
           child: AutoSizeText(
